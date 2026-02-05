@@ -1,162 +1,179 @@
 "use client"
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiMail, FiCheckCircle, FiXCircle } from 'react-icons/fi';
-import { officialMembers } from './data/members';
+import { FiArrowUpRight, FiShield, FiGlobe, FiUser } from 'react-icons/fi';
 
-export default function TrustCenter() {
-  const [query, setQuery] = useState('');
-  const [result, setResult] = useState(null);
-  const [hasSearched, setHasSearched] = useState(false);
+const members = [
+  { username: "@yellowjeff", email: "jeff@yellow-labs.net", fullName: "Jeffrey R. Sterling", role: "Founder & Managing Director", status: "Verified Platinum", location: "Global Operations" },
+  { username: "@theycallmemarco", email: "marco@yellow-labs.net", fullName: "Marco Rossi", role: "Lead Systems Architect", status: "Verified Lead", location: "Zurich HQ" },
+  { username: "@Karlgray8", email: "karl@yellow-labs.net", fullName: "Karl Gray", role: "Head of Community Relations", status: "Verified Senior", location: "London Bureau" },
+  { username: "@MeetSourav", email: "sourav@yellow-labs.net", fullName: "Sourav Kumar", role: "Core Protocol Engineer", status: "Verified Core", location: "Singapore Hub" },
+];
 
-  const handleVerify = () => {
-    const found = officialMembers.find(
-      (m) => 
-        m.username.toLowerCase() === query.toLowerCase().trim() || 
-        m.email.toLowerCase() === query.toLowerCase().trim()
+export default function LuxuryTrustCenter() {
+  const [input, setInput] = useState('');
+  const [user, setUser] = useState(null);
+  const [searched, setSearched] = useState(false);
+
+  const handleSearch = () => {
+    const found = members.find(m => 
+      m.username.toLowerCase() === input.toLowerCase().trim() || 
+      m.email.toLowerCase() === input.toLowerCase().trim()
     );
-    setResult(found || null);
-    setHasSearched(true);
+    setUser(found || null);
+    setSearched(true);
   };
 
   return (
-    <div className="relative min-h-screen w-full bg-[#000000] text-white selection:bg-yellow-500/30 overflow-x-hidden font-sans">
+    <div className="min-h-screen bg-[#000] text-[#EAEAEA] selection:bg-yellow-500/30 font-light overflow-hidden relative">
       
-      {/* LAYER 2: Grain Texture */}
-      <div className="fixed inset-0 pointer-events-none opacity-[0.03] z-10 bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
+      {/* INSTITUTIONAL BACKGROUND SYSTEM */}
+      <div className="fixed inset-0 z-0 overflow-hidden">
+        {/* Subtle Grain Overlay */}
+        <div className="absolute inset-0 opacity-[0.04] bg-[url('https://res.cloudinary.com/dqr68ovm5/image/upload/v1680554553/noise_v1.png')] mix-blend-overlay"></div>
+        
+        {/* Architectural Grid Lines */}
+        <div className="absolute inset-0 border-x border-white/[0.03] mx-auto max-w-7xl h-full"></div>
+        <div className="absolute top-[15%] w-full h-[1px] bg-white/[0.03]"></div>
+        <div className="absolute top-[85%] w-full h-[1px] bg-white/[0.03]"></div>
+      </div>
 
-      {/* LAYER 3: Mesh Grid */}
-      <motion.div 
-        initial={{ y: 0 }}
-        animate={{ y: -20 }}
-        transition={{ duration: 10, repeat: Infinity, repeatType: "mirror", ease: "linear" }}
-        className="fixed inset-0 pointer-events-none opacity-[0.06] z-0"
-        style={{ 
-          backgroundImage: `linear-gradient(#333 1px, transparent 1px), linear-gradient(90deg, #333 1px, transparent 1px)`,
-          backgroundSize: '100px 100px',
-          filter: 'blur(1px)'
-        }}
-      />
-
-      <div className="relative z-20 flex flex-col items-center pt-20 px-6">
-        {/* TOP BRAND SECTION */}
-        <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.4 }}
-          className="flex flex-col items-center w-full max-w-4xl"
-        >
-          <div className="text-yellow-500 font-bold text-xl tracking-tighter mb-8">YELLOW LABS</div>
-          <div className="w-full h-[1px] bg-white/10 mb-24" />
-        </motion.div>
+      <main className="relative z-10 max-w-7xl mx-auto px-8 flex flex-col min-h-screen">
+        
+        {/* NAV / LOGO SECTION */}
+        <header className="py-12 flex justify-between items-center border-b border-white/[0.05]">
+          <motion.div 
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="text-xs tracking-[0.4em] font-bold text-yellow-500"
+          >
+            YELLOW LABS <span className="text-white/20 ml-2">/ INTERNAL TRUST</span>
+          </motion.div>
+          <div className="text-[10px] tracking-[0.2em] text-white/40 uppercase hidden md:block">
+            Institutional Verification Portal v2.0
+          </div>
+        </header>
 
         {/* HERO SECTION */}
-        <div className="text-center mb-12">
-          <motion.h1 
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-5xl md:text-6xl font-semibold tracking-tight mb-4"
-          >
-            Trust Center
-          </motion.h1>
-          <motion.p 
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-white/60 text-lg tracking-wide"
-          >
-            Official Yellow Labs Identity Verification
-          </motion.p>
+        <div className="flex-grow flex flex-col justify-center py-20">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
+            <div className="lg:col-span-7">
+              <motion.span 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="text-yellow-500 text-xs font-medium tracking-[0.3em] uppercase block mb-6"
+              >
+                Identity Assurance
+              </motion.span>
+              <motion.h1 
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-6xl md:text-8xl font-medium tracking-tighter leading-[0.9] mb-8"
+              >
+                Yellow <br /> Trust Center
+              </motion.h1>
+              <motion.p 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.2 }}
+                className="max-w-md text-white/40 text-lg leading-relaxed"
+              >
+                Verify the digital credentials of Yellow Labs personnel. 
+                Ensuring secure, authenticated communication within the ecosystem.
+              </motion.p>
+            </div>
+
+            <div className="lg:col-span-5 w-full">
+              <div className="relative group">
+                <input 
+                  type="text"
+                  placeholder="USERNAME OR EMAIL"
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  className="w-full bg-transparent border-b border-white/20 py-6 text-xl tracking-widest uppercase focus:border-yellow-500 outline-none transition-all duration-500 placeholder:text-white/10"
+                />
+                <button 
+                  onClick={handleSearch}
+                  className="absolute right-0 bottom-6 group-hover:text-yellow-500 transition-colors"
+                >
+                  <FiArrowUpRight size={32} />
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* RESULTS AREA */}
+          <div className="mt-24 min-h-[400px]">
+            <AnimatePresence mode="wait">
+              {searched && (
+                <motion.div
+                  initial={{ opacity: 0, y: 40 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  className="w-full border border-white/[0.08] bg-white/[0.02] backdrop-blur-sm relative overflow-hidden"
+                >
+                  {user ? (
+                    <div className="p-1 w-full">
+                      <div className="border border-white/[0.05] p-12">
+                        <div className="flex flex-col md:flex-row justify-between items-start gap-12">
+                          <div className="space-y-8">
+                            <div>
+                              <p className="text-[10px] tracking-[0.3em] text-yellow-500 uppercase mb-2">Verified Personnel</p>
+                              <h2 className="text-4xl md:text-5xl font-medium tracking-tight uppercase">{user.fullName}</h2>
+                              <p className="text-white/30 tracking-[0.2em] mt-1 uppercase text-sm">{user.username}</p>
+                            </div>
+                            
+                            <div className="grid grid-cols-2 gap-16">
+                              <InfoBlock icon={<FiShield />} label="Security Status" value={user.status} />
+                              <InfoBlock icon={<FiGlobe />} label="Location" value={user.location} />
+                            </div>
+                          </div>
+
+                          <div className="w-full md:w-auto flex flex-col gap-4">
+                            <div className="text-[10px] tracking-[0.2em] text-white/20 uppercase text-right hidden md:block mb-4">
+                              Official Credentials
+                            </div>
+                            <button className="bg-white text-black px-10 py-5 font-bold uppercase text-xs tracking-widest hover:bg-yellow-500 transition-colors flex items-center justify-center gap-3">
+                              Request Contact <FiArrowUpRight />
+                            </button>
+                            <button className="border border-white/20 px-10 py-5 font-bold uppercase text-xs tracking-widest hover:border-white transition-colors">
+                              Download Signature
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="p-20 text-center border border-white/[0.05]">
+                      <h3 className="text-xl tracking-widest uppercase opacity-40">Identity Not Recognized</h3>
+                      <p className="text-sm text-white/20 mt-4 max-w-xs mx-auto uppercase tracking-tighter">
+                        The requested credentials do not exist in our institutional ledger.
+                      </p>
+                    </div>
+                  )}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         </div>
 
-        {/* VERIFICATION INPUT */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="w-full max-w-xl flex flex-col md:flex-row gap-4 mb-20"
-        >
-          <input 
-            type="text"
-            placeholder="Enter username or email"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            className="flex-grow bg-[#111] border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-yellow-500/50 focus:ring-4 focus:ring-yellow-500/5 transition-all duration-200"
-          />
-          <button 
-            onClick={handleVerify}
-            className="bg-black border border-yellow-500 text-yellow-500 px-8 py-4 rounded-2xl font-medium hover:bg-yellow-500 hover:text-black hover:-translate-y-0.5 transition-all duration-200"
-          >
-            Verify
-          </button>
-        </motion.div>
-
-        {/* RESULTS SECTION */}
-        <AnimatePresence mode="wait">
-          {hasSearched && (
-            <motion.div
-              key={result ? result.id : 'not-found'}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              className="w-full max-w-2xl bg-[#0A0A0A] border border-white/5 rounded-3xl p-8 md:p-12 shadow-2xl mb-32"
-            >
-              <div className="flex justify-between items-center mb-10">
-                <div className="flex items-center gap-2">
-                  <div className={`w-2 h-2 rounded-full ${result ? 'bg-yellow-500 shadow-[0_0_8px_rgba(234,179,8,0.6)]' : 'bg-white/20'}`} />
-                  <span className="text-xs uppercase tracking-[0.2em] text-white/40 font-medium">
-                    {result ? 'Verified Identity' : 'Identity Not Found'}
-                  </span>
-                </div>
-                {result && <span className="text-xs font-mono text-white/30">{result.id}</span>}
-              </div>
-
-              {result ? (
-                <>
-                  <div className="mb-10">
-                    <h2 className="text-3xl font-semibold mb-1">{result.username}</h2>
-                    <p className="text-yellow-500/80 font-medium">{result.role}</p>
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-y-8 gap-x-4 mb-12 border-t border-white/5 pt-10">
-                    <DataPoint label="Status" value={result.status} highlight />
-                    <DataPoint label="Member Since" value={result.since} />
-                    <DataPoint label="Role" value={result.role} />
-                    <DataPoint label="Verification ID" value={result.id} />
-                  </div>
-
-                  <button className="w-full group flex items-center justify-center gap-2 border border-yellow-500/50 text-yellow-500 py-4 rounded-xl hover:bg-yellow-500 hover:text-black transition-all duration-300">
-                    Request Official Contact
-                    <FiMail className="group-hover:translate-x-1 transition-transform" />
-                  </button>
-                </>
-              ) : (
-                <div className="text-center py-10">
-                  <p className="text-white/60">This account is not registered within the Yellow Labs Trust System.</p>
-                </div>
-              )}
-              
-              <p className="mt-8 text-center text-[10px] text-white/20 tracking-wider">
-                ALL COMMUNICATIONS ARE SUBJECT TO YELLOW LABS INTERNAL REVIEW AND COMPLIANCE.
-              </p>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
         {/* FOOTER */}
-        <footer className="pb-10 opacity-30 text-[10px] tracking-[0.3em] uppercase">
-          Powered by Yellow Labs Internal Authentication Protocol
+        <footer className="py-12 border-t border-white/[0.05] flex flex-col md:flex-row justify-between items-center text-[9px] tracking-[0.4em] text-white/20 uppercase font-bold">
+          <div>© 2026 Yellow Labs Int. Protocol</div>
+          <div className="mt-4 md:mt-0">SECURE END-TO-END VERIFICATION</div>
         </footer>
-      </div>
+      </main>
     </div>
   );
 }
 
-function DataPoint({ label, value, highlight = false }) {
+function InfoBlock({ icon, label, value }) {
   return (
-    <div>
-      <p className="text-[10px] uppercase tracking-widest text-white/30 mb-1">{label}</p>
-      <p className={`text-sm font-medium ${highlight ? 'text-yellow-500' : 'text-white/80'}`}>{value}</p>
+    <div className="space-y-3">
+      <div className="flex items-center gap-2 text-white/20 text-[10px] tracking-widest uppercase">
+        {icon} <span>{label}</span>
+      </div>
+      <div className="text-lg font-medium tracking-tight text-white/80 uppercase">{value}</div>
     </div>
   );
 }
