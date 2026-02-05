@@ -1,4 +1,4 @@
-export const officialMembers = [
+export const members = [
     {
       username: "@yellowjeff",
       email: "jeff@yellow-labs.net",
