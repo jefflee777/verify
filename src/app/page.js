@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { HiOutlineShieldExclamation, HiOutlineArrowRight } from 'react-icons/hi2';
 import { RiTelegramFill, RiMailFill } from 'react-icons/ri';
 import { HiOutlineBadgeCheck } from "react-icons/hi";
+import Image from 'next/image';
 
 const MEMBERS = [
   { name: 'Jeff', handle: '@yellowjeff', email: 'jeff@yellow-labs.net' },
@@ -39,12 +40,11 @@ export default function LuxuryPortal() {
       <div className="grain-overlay" />
 
       {/* 3. Content Layer */}
-      <nav className="relative z-10 flex justify-between items-center px-10 py-8 max-w-[1400px] mx-auto">
+      <nav className="relative z-10 flex justify-between items-center px-10 pt-8 max-w-350 mx-auto">
         <div className="flex items-center gap-4">
-          <div className="h-[1px] w-12 bg-brand-yellow/50" />
-          <span className="text-sm font-bold tracking-[0.4em] uppercase text-brand-yellow">Yellow Labs</span>
+          <Image src="/logo.png" alt='Logo' width={200} height={50}/>
         </div>
-        <div className="text-[10px] tracking-widest opacity-40 uppercase">Internal Directory v2.0</div>
+        <div className="text-[10px] tracking-widest opacity-40 uppercase">Web</div>
       </nav>
 
       <main className="relative z-10 max-w-5xl mx-auto px-6 pt-24 pb-32">
@@ -111,7 +111,6 @@ export default function LuxuryPortal() {
               <div className="bg-black/40 backdrop-blur-xl rounded-[22px] p-8 h-full border border-white/5 transition-all group-hover:border-brand-yellow/50">
                 <div className="mb-8">
                   <h3 className="text-2xl font-bold tracking-tight group-hover:text-brand-yellow transition-colors">{m.name}</h3>
-                  <div className="h-[2px] w-8 bg-brand-yellow mt-2 opacity-30 group-hover:w-full transition-all duration-500" />
                 </div>
                 
                 <div className="flex flex-col gap-3">
