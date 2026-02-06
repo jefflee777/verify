@@ -121,9 +121,6 @@ export default function LuxuryPortal() {
             >
               <div className="bg-[#0A0A0A] backdrop-blur-2xl rounded-[23px] p-8 h-full flex flex-col justify-between">
                 <div>
-                  {/* <div className="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center mb-6 group-hover:bg-yellow-400/10 transition-colors">
-                    <RiShieldUserLine className="text-zinc-500 group-hover:text-yellow-400" />
-                  </div> */}
                   <h3 className="text-xl font-bold tracking-tight mb-1">{m.name}</h3>
                   <p className="text-zinc-500 text-xs mb-8 tracking-widest uppercase">Core Team</p>
                 </div>
