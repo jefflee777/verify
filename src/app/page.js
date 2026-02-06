@@ -1,214 +1,171 @@
-'use client'
+"use client";
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiSend, FiMail, FiAlertTriangle, FiArrowUpRight, FiSearch } from 'react-icons/fi';
+import { HiOutlineShieldExclamation, HiOutlineArrowRight } from 'react-icons/hi2';
+import { RiTelegramFill, RiMailFill } from 'react-icons/ri';
+import { HiOutlineBadgeCheck } from "react-icons/hi";
 
-const members = [
-  { 
-    username: "@yellowjeff", 
-    email: "jeff@yellow-labs.net", 
-    fullName: "Jeffrey R. Sterling", 
-    role: "Founder & Managing Director",
-    telegram: "https://t.me/yellowjeff"
-  },
-  { 
-    username: "@theycallmemarco", 
-    email: "marco@yellow-labs.net", 
-    fullName: "Marco Rossi", 
-    role: "Lead Systems Architect",
-    telegram: "https://t.me/theycallmemarco"
-  },
-  { 
-    username: "@Karlgray8", 
-    email: "karl@yellow-labs.net", 
-    fullName: "Karl Gray", 
-    role: "Head of Community Relations",
-    telegram: "https://t.me/Karlgray8"
-  },
-  { 
-    username: "@MeetSourav", 
-    email: "sourav@yellow-labs.net", 
-    fullName: "Sourav Kumar", 
-    role: "Core Protocol Engineer",
-    telegram: "https://t.me/MeetSourav"
-  }
+const MEMBERS = [
+  { name: 'Jeff', handle: '@yellowjeff', email: 'jeff@yellow-labs.net' },
+  { name: 'Marco', handle: '@theycallmemarco', email: 'marco@yellow-labs.net' },
+  { name: 'Karl Gray', handle: '@Karlgray8', email: 'official@yellow-labs.net' },
+  { name: 'Sourav', handle: '@meetsourav', email: 'sourav@yellow-labs.net' },
 ];
 
-export default function TrustPortal() {
-  const [input, setInput] = useState('');
-  const [searchResult, setSearchResult] = useState(null);
-  const [hasSearched, setHasSearched] = useState(false);
+export default function LuxuryPortal() {
+  const [query, setQuery] = useState('');
+  const [verifiedMember, setVerifiedMember] = useState(null);
+  const [hasChecked, setHasChecked] = useState(false);
 
-  const handleSearch = () => {
-    if (!input.trim()) return;
-    const found = members.find(m => 
-      m.username.toLowerCase() === input.toLowerCase().trim() || 
-      m.email.toLowerCase() === input.toLowerCase().trim()
+  const handleVerify = (e) => {
+    e.preventDefault();
+    const found = MEMBERS.find(m => 
+      m.handle.toLowerCase() === query.toLowerCase() || 
+      m.email.toLowerCase() === query.toLowerCase()
     );
-    setSearchResult(found || null);
-    setHasSearched(true);
-  };
-
-  const handleKeyDown = (e) => {
-    if (e.key === 'Enter') handleSearch();
+    setVerifiedMember(found || null);
+    setHasChecked(true);
   };
 
   return (
-    <div className="min-h-screen bg-[#000] text-[#F5F5F5] font-light selection:bg-yellow-500/30">
+    <div className="relative min-h-screen w-full text-white font-sans selection:bg-brand-yellow selection:text-black">
+      {/* 1. Fixed Background Image Layer */}
+      <div 
+        className="fixed inset-0 z-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: `url('/background.svg')` }}
+      />
       
-      {/* LUXURY BACKGROUND OVERLAY */}
-      <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute inset-0 opacity-[0.03] bg-[url('https://res.cloudinary.com/dqr68ovm5/image/upload/v1680554553/noise_v1.png')]"></div>
-        <div className="absolute inset-0 border-x border-white/[0.03] mx-auto max-w-7xl"></div>
-      </div>
+      {/* 2. Grain & Noise Overlay */}
+      <div className="grain-overlay" />
 
-      <main className="relative z-10 max-w-7xl mx-auto px-8 flex flex-col pt-16 pb-24">
+      {/* 3. Content Layer */}
+      <nav className="relative z-10 flex justify-between items-center px-10 py-8 max-w-[1400px] mx-auto">
+        <div className="flex items-center gap-4">
+          <div className="h-[1px] w-12 bg-brand-yellow/50" />
+          <span className="text-sm font-bold tracking-[0.4em] uppercase text-brand-yellow">Yellow Labs</span>
+        </div>
+        <div className="text-[10px] tracking-widest opacity-40 uppercase">Internal Directory v2.0</div>
+      </nav>
+
+      <main className="relative z-10 max-w-5xl mx-auto px-6 pt-24 pb-32">
         
-        {/* HEADER */}
-        <header className="flex justify-between items-center mb-32">
-          <div className="text-[12px] tracking-[0.6em] font-black">YELLOW LABS</div>
-          <div className="h-[1px] flex-grow mx-12 bg-white/10 hidden md:block"></div>
-          <div className="text-[10px] tracking-[0.2em] text-white/40 uppercase font-bold">Directory // 2026</div>
-        </header>
-
-        {/* HERO & SEARCH */}
-        <section className="mb-40">
+        {/* Verification Engine */}
+        <section className="text-center mb-32">
           <motion.h1 
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-7xl md:text-[10rem] font-medium tracking-tighter leading-[0.8] mb-16 italic"
+            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+            className="text-6xl md:text-8xl font-black tracking-tighter mb-10"
           >
-            Trust Center
+            VERIFY <span className="text-brand-yellow font-light italic text-5xl md:text-7xl">Identity</span>
           </motion.h1>
 
-          <div className="max-w-3xl relative">
-            <input 
-              type="text"
-              placeholder="SEARCH THE LEDGER..."
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyDown={handleKeyDown}
-              className="w-full bg-transparent border-b border-white/10 py-10 text-3xl tracking-widest uppercase focus:border-yellow-500 outline-none transition-all duration-700 placeholder:text-white/5 font-extralight"
-            />
-            <div className="absolute right-0 bottom-10 flex items-center gap-6">
-              <span className="text-[10px] tracking-[0.3em] text-white/20 hidden md:block uppercase font-bold">Submit Query [Enter]</span>
-              <button onClick={handleSearch} className="text-white/40 hover:text-yellow-500 transition-colors">
-                <FiSearch size={32} />
+          <div className="max-w-2xl mx-auto relative group">
+            {/* Soft Glow behind input */}
+            <div className="absolute -inset-1 bg-brand-yellow/20 rounded-2xl blur-2xl opacity-0 group-hover:opacity-100 transition-all duration-700" />
+            
+            <form onSubmit={handleVerify} className="relative flex items-center bg-black/40 border border-white/10 backdrop-blur-2xl rounded-2xl overflow-hidden p-1 shadow-2xl">
+              <input 
+                type="text"
+                placeholder="Enter handle or official email..."
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                className="w-full bg-transparent px-8 py-6 outline-none text-lg placeholder:text-zinc-600 font-light"
+              />
+              <button className="bg-white text-black h-[60px] px-10 rounded-xl font-black text-xs uppercase tracking-widest hover:bg-brand-yellow transition-all flex items-center gap-2">
+                Check <HiOutlineArrowRight className="text-lg" />
               </button>
-            </div>
-          </div>
+            </form>
 
-          {/* DYNAMIC SEARCH RESULT BOX */}
-          <AnimatePresence>
-            {hasSearched && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0, height: 0 }}
-                className="mt-12 overflow-hidden"
-              >
-                <div className={`p-10 border-l-2 ${searchResult ? 'border-yellow-500 bg-yellow-500/5' : 'border-white/10 bg-white/5'}`}>
-                  {searchResult ? (
-                    <div className="flex flex-col md:flex-row justify-between items-center gap-8">
-                      <div>
-                        <p className="text-yellow-500 text-[10px] tracking-[0.4em] uppercase font-bold mb-2">Verification Successful</p>
-                        <h3 className="text-3xl uppercase tracking-tight">{searchResult.fullName} is a verified member.</h3>
-                      </div>
-                      <button 
-                        onClick={() => {setHasSearched(false); setInput('');}}
-                        className="text-[10px] tracking-widest text-white/40 hover:text-white uppercase border-b border-white/20 pb-1"
-                      >
-                        Clear Result
-                      </button>
+            <AnimatePresence>
+              {hasChecked && (
+                <motion.div 
+                  initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
+                  className={`mt-6 p-8 rounded-2xl border backdrop-blur-3xl ${verifiedMember ? 'bg-brand-yellow/10 border-brand-yellow/30' : 'bg-red-500/10 border-red-500/30'}`}
+                >
+                  {verifiedMember ? (
+                    <div className="flex flex-col items-center gap-3">
+                      <HiOutlineBadgeCheck className="text-5xl text-brand-yellow" />
+                      <p className="text-2xl font-bold tracking-tight">Verified: {verifiedMember.name}</p>
+                      <span className="text-xs uppercase tracking-[0.3em] opacity-60">Official Yellow Labs Staff</span>
                     </div>
                   ) : (
-                    <p className="text-white/40 tracking-[0.2em] uppercase text-sm italic">No matching identity found in the Yellow Labs database.</p>
+                    <div className="flex flex-col items-center gap-3">
+                      <HiOutlineShieldExclamation className="text-5xl text-red-500" />
+                      <p className="text-2xl font-bold tracking-tight">Access Denied</p>
+                      <span className="text-xs uppercase tracking-[0.3em] opacity-60">Unknown Entity — Proceed with Caution</span>
+                    </div>
                   )}
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         </section>
 
-        {/* FULL MEMBER DIRECTORY */}
-        <section className="mb-40">
-          <div className="flex items-center gap-4 mb-16">
-            <h2 className="text-[11px] tracking-[0.5em] uppercase font-black text-white/30 whitespace-nowrap">Official Personnel Directory</h2>
-            <div className="h-[1px] w-full bg-white/[0.05]"></div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-1">
-            {members.map((member, idx) => (
-              <motion.div 
-                key={idx}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: idx * 0.1 }}
-                viewport={{ once: true }}
-                className="group border border-white/[0.06] bg-[#050505] p-10 flex flex-col justify-between hover:bg-white/[0.02] transition-colors duration-500 h-[320px]"
-              >
-                <div>
-                  <div className="flex justify-between items-start mb-8">
-                    <span className="text-[10px] tracking-widest text-white/20 uppercase font-bold">0{idx + 1}</span>
-                    <div className="w-1.5 h-1.5 rounded-full bg-yellow-500 shadow-[0_0_8px_#EAB308]"></div>
-                  </div>
-                  <h3 className="text-3xl md:text-4xl font-light uppercase tracking-tighter mb-2 group-hover:text-yellow-500 transition-colors">
-                    {member.fullName}
-                  </h3>
-                  <p className="text-white/30 text-[11px] tracking-[0.3em] uppercase font-medium">{member.role}</p>
+        {/* Minimal Member Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-40">
+          {MEMBERS.map((m, i) => (
+            <motion.div 
+              key={i}
+              whileHover={{ y: -5 }}
+              className="relative p-1 rounded-3xl bg-gradient-to-b from-white/10 to-transparent group"
+            >
+              <div className="bg-black/40 backdrop-blur-xl rounded-[22px] p-8 h-full border border-white/5 transition-all group-hover:border-brand-yellow/50">
+                <div className="mb-8">
+                  <h3 className="text-2xl font-bold tracking-tight group-hover:text-brand-yellow transition-colors">{m.name}</h3>
+                  <div className="h-[2px] w-8 bg-brand-yellow mt-2 opacity-30 group-hover:w-full transition-all duration-500" />
                 </div>
-
-                <div className="flex gap-4 mt-8">
-                  <a 
-                    href={member.telegram} 
-                    className="flex-grow flex items-center justify-center gap-2 py-4 bg-white text-black text-[10px] font-black uppercase tracking-[0.2em] hover:bg-yellow-500 transition-all duration-300"
-                  >
-                    <FiSend size={14} /> Chat Telegram
+                
+                <div className="flex flex-col gap-3">
+                  <a href={`https://t.me/${m.handle.replace('@', '')}`} className="flex items-center justify-between group/link text-xs font-bold uppercase tracking-widest opacity-60 hover:opacity-100 hover:text-brand-yellow transition-all">
+                    Telegram <RiTelegramFill className="text-xl" />
                   </a>
-                  <a 
-                    href={`mailto:${member.email}`}
-                    className="flex-grow flex items-center justify-center gap-2 py-4 border border-white/10 text-white text-[10px] font-black uppercase tracking-[0.2em] hover:bg-white hover:text-black transition-all duration-300"
-                  >
-                    <FiMail size={14} /> Mail Us
+                  <a href={`mailto:${m.email}`} className="flex items-center justify-between group/link text-xs font-bold uppercase tracking-widest opacity-60 hover:opacity-100 hover:text-brand-yellow transition-all">
+                    Email <RiMailFill className="text-xl" />
                   </a>
                 </div>
-              </motion.div>
-            ))}
-          </div>
-        </section>
-
-        {/* SECURITY & FRAUD AWARENESS */}
-        <section className="border border-white/5 p-12 bg-white/[0.01]">
-          <div className="flex flex-col md:flex-row gap-12">
-            <div className="flex-shrink-0">
-              <div className="w-16 h-16 rounded-full border border-yellow-500/20 flex items-center justify-center">
-                <FiAlertTriangle className="text-yellow-500" size={24} />
               </div>
-            </div>
-            <div className="space-y-6">
-              <h4 className="text-lg tracking-[0.1em] uppercase font-bold text-white">Security Protocol & Fraud Awareness</h4>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-                <p className="text-sm leading-relaxed text-white/30 tracking-wide uppercase text-[11px]">
-                  Yellow Labs officials will <span className="text-white font-bold underline decoration-yellow-500 decoration-2 underline-offset-4">never</span> request sensitive information, private keys, or direct fund transfers via external messaging channels. 
-                </p>
-                <p className="text-sm leading-relaxed text-white/30 tracking-wide uppercase text-[11px]">
-                  Scammers often create high-fidelity impersonation accounts. This directory serves as the <span className="text-white">only</span> authoritative source for identity verification. If a user is not listed here, they are not an official representative.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
+            </motion.div>
+          ))}
+        </div>
 
-        {/* FOOTER */}
-        <footer className="mt-32 pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-[10px] tracking-[0.4em] text-white/20 font-black">
-          <p>© 2026 YELLOW LABS GROUP — GLOBAL OPERATIONS</p>
-          <div className="flex gap-8 mt-6 md:mt-0">
-            <span className="hover:text-white cursor-pointer transition-colors">PRIVACY</span>
-            <span className="hover:text-white cursor-pointer transition-colors">TERMS</span>
-            <span className="hover:text-white cursor-pointer transition-colors">SYSTEM STATUS</span>
+        {/* Detailed Simple English Documentation */}
+        <footer className="max-w-4xl mx-auto space-y-24 border-t border-white/10 pt-32">
+          <section className="grid md:grid-cols-2 gap-16">
+            <div>
+              <h2 className="text-4xl font-bold mb-6 tracking-tighter">Why this page exists</h2>
+              <p className="text-zinc-400 text-lg leading-relaxed font-light">
+                We believe that honesty is the foundation of everything we do at Yellow Labs. Because our work is popular, some people try to trick others by using names that look like ours. We built this portal so you never have to guess who you are talking to.
+              </p>
+            </div>
+            <div>
+              <h2 className="text-4xl font-bold mb-6 tracking-tighter">Stay Safe</h2>
+              <p className="text-zinc-400 text-lg leading-relaxed font-light">
+                A real team member will never mind if you ask them to wait while you check this page. If someone gets angry or tries to rush you into a decision, that is usually a sign of a scam. Take your time and verify every single time.
+              </p>
+            </div>
+          </section>
+
+          <section className="bg-white/5 border border-white/10 p-12 rounded-[3rem] backdrop-blur-md">
+            <h3 className="text-2xl font-bold mb-8">Simple steps to protect yourself:</h3>
+            <ul className="space-y-6 text-zinc-300">
+              <li className="flex gap-4">
+                <span className="text-brand-yellow font-bold">01.</span>
+                <p>Copy the username or email address of the person who contacted you.</p>
+              </li>
+              <li className="flex gap-4">
+                <span className="text-brand-yellow font-bold">02.</span>
+                <p>Paste it into the search box at the top of this page.</p>
+              </li>
+              <li className="flex gap-4">
+                <span className="text-brand-yellow font-bold">03.</span>
+                <p>If you see a green checkmark, it is safe. If not, do not share any information with them.</p>
+              </li>
+            </ul>
+          </section>
+
+          <div className="text-center pt-20 opacity-20 text-[10px] tracking-[1em] uppercase">
+            Official Yellow Labs Directory
           </div>
         </footer>
-
       </main>
     </div>
   );
