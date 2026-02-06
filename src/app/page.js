@@ -5,6 +5,7 @@ import { HiOutlineShieldExclamation, HiOutlineArrowRight } from 'react-icons/hi2
 import { RiTelegramFill, RiMailFill } from 'react-icons/ri';
 import { HiOutlineBadgeCheck } from "react-icons/hi";
 import Image from 'next/image';
+import { FaExternalLinkAlt } from "react-icons/fa";
 
 const MEMBERS = [
   { name: 'Jeff', handle: '@yellowjeff', email: 'jeff@yellow-labs.net' },
@@ -42,26 +43,28 @@ export default function LuxuryPortal() {
       {/* 3. Content Layer */}
       <nav className="relative z-10 flex justify-between items-center px-10 pt-8 max-w-350 mx-auto">
         <div className="flex items-center gap-4">
-          <Image src="/logo.png" alt='Logo' width={200} height={50}/>
+          <Image src="/logo.png" alt='Logo' width={125} height={50} className='scale-125'/>
         </div>
-        <div className="text-[10px] tracking-widest opacity-40 uppercase">Web</div>
+        <a href='https://www.yellow-labs.net/' target='_blank'>
+        <div className="text-sm tracking-widest opacity-40 uppercase flex items-center justify-center gap-2">Web <FaExternalLinkAlt/></div>
+        </a>
       </nav>
 
       <main className="relative z-10 max-w-5xl mx-auto px-6 pt-24 pb-32">
         
         {/* Verification Engine */}
         <section className="text-center mb-32">
-          <motion.h1 
+        <div className='flex items-center justify-center gap-2.5 mx-auto w-fit'>
+        <motion.h1 
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-            className="text-6xl md:text-8xl font-black tracking-tighter mb-10"
+            className="text-4xl md:text-6xl font-semibold tracking-tighter mb-10"
           >
-            VERIFY <span className="text-brand-yellow font-light italic text-5xl md:text-7xl">Identity</span>
+            Verify <span className="text-brand-yellow">Identity</span>
           </motion.h1>
+          <HiOutlineBadgeCheck className='text-4xl md:text-6xl text-brand-yellow -mt-8'/>
+        </div>
 
           <div className="max-w-2xl mx-auto relative group">
-            {/* Soft Glow behind input */}
-            <div className="absolute -inset-1 bg-brand-yellow/20 rounded-2xl blur-2xl opacity-0 group-hover:opacity-100 transition-all duration-700" />
-            
             <form onSubmit={handleVerify} className="relative flex items-center bg-black/40 border border-white/10 backdrop-blur-2xl rounded-2xl overflow-hidden p-1 shadow-2xl">
               <input 
                 type="text"
