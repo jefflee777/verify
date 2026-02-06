@@ -2,7 +2,8 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { HiOutlineShieldExclamation, HiOutlineArrowRight } from 'react-icons/hi2';
-import { RiTelegramFill, RiMailFill } from 'react-icons/ri';
+import { RiTelegram2Line } from 'react-icons/ri';
+import { LuMail } from "react-icons/lu";
 import { HiOutlineBadgeCheck } from "react-icons/hi";
 import Image from 'next/image';
 import { FaExternalLinkAlt } from "react-icons/fa";
@@ -54,15 +55,12 @@ export default function LuxuryPortal() {
         
         {/* Verification Engine */}
         <section className="text-center mb-32">
-        <div className='flex items-center justify-center gap-2.5 mx-auto w-fit'>
         <motion.h1 
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
             className="text-4xl md:text-6xl font-semibold tracking-tighter mb-10"
           >
             Verify <span className="text-brand-yellow">Identity</span>
           </motion.h1>
-          <HiOutlineBadgeCheck className='text-4xl md:text-6xl text-brand-yellow -mt-8'/>
-        </div>
 
           <div className="max-w-2xl mx-auto relative group">
             <form onSubmit={handleVerify} className="relative flex items-center bg-black/40 border border-white/10 backdrop-blur-2xl rounded-2xl overflow-hidden p-1 shadow-2xl">
@@ -118,10 +116,10 @@ export default function LuxuryPortal() {
                 
                 <div className="flex flex-col gap-3">
                   <a href={`https://t.me/${m.handle.replace('@', '')}`} className="flex items-center justify-between group/link text-xs font-bold uppercase tracking-widest opacity-60 hover:opacity-100 hover:text-brand-yellow transition-all">
-                    Telegram <RiTelegramFill className="text-xl" />
+                    Telegram <RiTelegram2Line className="text-xl" />
                   </a>
                   <a href={`mailto:${m.email}`} className="flex items-center justify-between group/link text-xs font-bold uppercase tracking-widest opacity-60 hover:opacity-100 hover:text-brand-yellow transition-all">
-                    Email <RiMailFill className="text-xl" />
+                    Email <LuMail className="text-xl" />
                   </a>
                 </div>
               </div>
